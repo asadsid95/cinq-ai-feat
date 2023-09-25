@@ -18,8 +18,11 @@ import { Loader } from '@/components/loader'
 import { cn } from '@/lib/utils'
 import { UserAvatar } from '@/components/user-avatar'
 import { BotAvatar } from '@/components/bot-avatar'
+import { useProModal } from '@/hooks/use-pro-modal'
 
 const ConversationPage = () => {
+
+    const proModal = useProModal()
 
     const router = useRouter()
 
@@ -56,8 +59,12 @@ const ConversationPage = () => {
             form.reset()
 
         } catch (error) {
-            console.log(error)
-            // TODO: open Pro modal
+
+            // check if code is 403, open modal
+            if (error?.response?.status === 403) {
+                proModal.onOpen()
+            }
+
 
         } finally { // refresh the router to refresh all server components
             router.refresh()

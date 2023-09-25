@@ -18,9 +18,11 @@ import { cn } from '@/lib/utils'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Card, CardFooter } from '@/components/ui/card'
 import Image from 'next/image'
+import { useProModal } from '@/hooks/use-pro-modal'
 
 const ImagePage = () => {
 
+    const proModal = useProModal()
     const router = useRouter()
     const [images, setImages] = useState<string[]>([])
 
@@ -51,8 +53,11 @@ const ImagePage = () => {
             form.reset()
 
         } catch (error) {
-            console.log(error)
-            // TODO: open Pro modal
+            // check if code is 403, open modal
+            if (error?.response?.status === 403) {
+                proModal.onOpen()
+            }
+
 
         } finally { // refresh the router to refresh all server components
             router.refresh()

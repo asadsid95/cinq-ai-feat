@@ -14,8 +14,10 @@ import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { Empty } from '@/components/empty'
 import { Loader } from '@/components/loader'
+import { useProModal } from '@/hooks/use-pro-modal'
 
 const MusicPage = () => {
+    const proModal = useProModal()
 
     const router = useRouter()
 
@@ -42,9 +44,11 @@ const MusicPage = () => {
             form.reset()
 
         } catch (error) {
-            console.log(error)
-            // TODO: open Pro modal
 
+            // check if code is 403, open modal
+            if (error?.response?.status === 403) {
+                proModal.onOpen()
+            }
         } finally { // refresh the router to refresh all server components
             router.refresh()
         }
