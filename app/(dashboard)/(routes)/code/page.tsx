@@ -60,7 +60,7 @@ const CodePage = () => {
 
             form.reset()
 
-        } catch (error) {
+        } catch (error: any) {
 
             if (error?.response?.status === 403) {
                 proModal.onOpen()

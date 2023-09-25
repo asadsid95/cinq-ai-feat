@@ -59,7 +59,7 @@ const ConversationPage = () => {
 
             form.reset()
 
-        } catch (error) {
+        } catch (error: any) {
 
             // check if code is 403, open modal
             if (error?.response?.status === 403) {
