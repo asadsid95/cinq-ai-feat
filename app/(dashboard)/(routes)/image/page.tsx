@@ -19,6 +19,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Card, CardFooter } from '@/components/ui/card'
 import Image from 'next/image'
 import { useProModal } from '@/hooks/use-pro-modal'
+import toast from 'react-hot-toast'
 
 const ImagePage = () => {
 
@@ -56,6 +57,8 @@ const ImagePage = () => {
             // check if code is 403, open modal
             if (error?.response?.status === 403) {
                 proModal.onOpen()
+            } else {
+                toast.error("Something went wrong")
             }
 
 
